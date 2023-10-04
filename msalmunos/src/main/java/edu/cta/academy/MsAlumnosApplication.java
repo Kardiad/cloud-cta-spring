@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /*
  * EurekaClient necesario para listar en eureka y posteriormente para el gateway
@@ -16,6 +17,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 @SpringBootApplication
 @EntityScan("edu.cta.academy.common")
+@EnableFeignClients
 public class MsAlumnosApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

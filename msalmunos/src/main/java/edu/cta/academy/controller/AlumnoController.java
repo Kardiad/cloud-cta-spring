@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.cta.academy.DTO.Chiquitada;
 import edu.cta.academy.common.entity.Alumno;
+import edu.cta.academy.common.entity.Curso;
 import edu.cta.academy.service.AlumnoService;
 
 /*
@@ -234,6 +235,17 @@ public class AlumnoController {
 		return r;
 	}
 	
-	
+	@GetMapping("/obtenercursoalumno/{id}")
+	public ResponseEntity<?> obtenerCursoPorAlumno(@PathVariable Long id){
+		Optional<Curso> c = Optional.empty();
+		ResponseEntity<?> r = null;
+		c = this.service.obtenerCursoAlumno(id);
+		if(!c.isEmpty()) {
+			 r = ResponseEntity.ok(c);
+		}else {
+			r = ResponseEntity.noContent().build();
+		}
+		return r;
+	}
 
 }

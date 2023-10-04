@@ -40,6 +40,7 @@ public class Curso {
 	@OneToMany(fetch=FetchType.LAZY)
 	@Getter
 	@Setter
+	//@JsonIgnorne
 	List<Alumno> alumnos;
 	
 	public void addAlumno(Alumno a) {

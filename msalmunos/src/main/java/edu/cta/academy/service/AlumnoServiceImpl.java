@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import edu.cta.academy.DTO.Chiquitada;
+import edu.cta.academy.client.CursoFeingClient;
 import edu.cta.academy.common.entity.Alumno;
+import edu.cta.academy.common.entity.Curso;
 import edu.cta.academy.repository.AlumnoRepository;
 
 /*
@@ -24,6 +26,9 @@ public class AlumnoServiceImpl implements AlumnoService {
 	//Spring auto instancia a alumnoRepo generando una inyección de dependencia
 	@Autowired
 	AlumnoRepository sudentRepository;
+	
+	@Autowired
+	CursoFeingClient curso;
 
 	@Override
 	@Transactional(readOnly = true) //Permite acceso concurrente a la bbdd
@@ -127,9 +132,15 @@ public class AlumnoServiceImpl implements AlumnoService {
 	}
 
 	@Override
+	@Transactional
 	public Optional<Chiquitada> randomChiquito() {
-		// TODO Auto-generated method stub
 		return Optional.of((new RestTemplate()).getForObject("https://chiquitadas.es/api/quotes/avoleorrr", Chiquitada.class));
+	}
+
+	@Override
+	@Transactional
+	public Optional<Curso> obtenerCursoAlumno(Long id) {
+		return this.curso.obtenerCursoAlumno(id);
 	}
 	
 	

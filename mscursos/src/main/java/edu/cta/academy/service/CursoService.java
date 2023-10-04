@@ -15,4 +15,5 @@ public interface CursoService {
 	public void borrarCurso(Long id);
 	public Optional<Curso> anadirAlumnoCurso(List<Alumno> a, long id);
 	public Optional<Curso> eliminarAlumno(Alumno a, long id);
+	public Optional<Curso> obtenerCursoPorAlumno(Long id);
 }

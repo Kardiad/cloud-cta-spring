@@ -3,6 +3,8 @@ package edu.cta.academy.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.ws.rs.core.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,7 @@ import edu.cta.academy.common.entity.Curso;
 import edu.cta.academy.service.CursoService;
 
 @RestController
-@RequestMapping("/curso")
+@RequestMapping("/cursos")
 public class CursoController {
 	
 	@Autowired
@@ -99,6 +101,19 @@ public class CursoController {
 			}
 		}catch(Exception e) {
 			r = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+		return r;
+	}
+	
+	@GetMapping("/obtener-curso-por-alumno/{id}")
+	public ResponseEntity<?> obtenerCursoPorAlumno(@PathVariable Long id){
+		Optional<Curso> c = Optional.empty();
+		ResponseEntity<?> r = null;
+		c = this.curso.obtenerCursoPorAlumno(id);
+		if(!c.isEmpty()) {
+			 r = ResponseEntity.ok(c);
+		}else {
+			r = ResponseEntity.noContent().build();
 		}
 		return r;
 	}
