@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import edu.cta.academy.DTO.Chiquitada;
 import edu.cta.academy.common.entity.Alumno;
@@ -246,6 +248,16 @@ public class AlumnoController {
 			r = ResponseEntity.noContent().build();
 		}
 		return r;
+	}
+	
+
+	@GetMapping("/hateoas")
+	public ResponseEntity<?> listStudentHateoas() {
+		Iterable<Alumno> student = this.service.allStudents();
+		for (Alumno a : student){			
+			a.add(linkTo(methodOn(AlumnoController.class).findOneStudent(a.getId())).withSelfRel());
+		}
+		return ResponseEntity.ok(student);
 	}
 
 }
